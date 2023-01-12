@@ -3,6 +3,8 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
+<h1>智能宠物项圈APP</h1>
+
 <section>
 	<div class="btn-lg text-lg">
 		<a href="/health-moniter">健康检测</a>
