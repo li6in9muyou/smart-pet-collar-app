@@ -2,10 +2,14 @@
 	import BackToHome from '$lib/BackToHome.svelte';
 	import FormattedNumericReading from '$lib/FormattedNumericReading.svelte';
 	import { latestValueOf } from '$lib/PocketBaseAdapter.js';
+	import { onMount } from 'svelte';
 
-	const heartRate = latestValueOf('跳每分钟');
-	const bodyTemperature = latestValueOf('摄氏度');
-	const bloodOxygenLevel = latestValueOf('百分之');
+	let heartRate, bodyTemperature, bloodOxygenLevel;
+	onMount(() => {
+		heartRate = latestValueOf('跳每分钟');
+		bodyTemperature = latestValueOf('摄氏度');
+		bloodOxygenLevel = latestValueOf('百分之');
+	});
 </script>
 
 <svelte:head>
