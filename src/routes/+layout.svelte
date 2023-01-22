@@ -11,7 +11,6 @@
 		<p>
 			built by <a href="blog.li6q.fun">li6in9muyou</a>
 			with <a href="kit.svelte.dev">SvelteKit</a>
-			and <a href="pockethost.io">PocketHost</a>
 		</p>
 	</footer>
 </div>
