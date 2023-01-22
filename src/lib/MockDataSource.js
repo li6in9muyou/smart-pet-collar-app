@@ -43,8 +43,12 @@ const data_source = new (class MockDataSource {
 		if (this.windows.has(label)) {
 			return this.windows.get(label);
 		} else {
-			const window = new SlidingWindow();
-			this.windows.set(label, derived(this.latestValueOf(label), window.add.bind(window)));
+			const w = new SlidingWindow();
+			const window = derived(this.latestValueOf(label), (value) => {
+				w.add(value);
+				return w.values;
+			});
+			this.windows.set(label, window);
 			return window;
 		}
 	}
