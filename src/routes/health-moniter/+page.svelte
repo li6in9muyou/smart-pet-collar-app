@@ -83,7 +83,7 @@
 	</div>
 	<div class="chart">
 		<div>
-			<Line {data} />
+			<Line {data} options={op} />
 		</div>
 		<span>HbO2</span>
 	</div>
