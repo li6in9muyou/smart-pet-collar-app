@@ -6,12 +6,8 @@
 <h1>智能宠物项圈APP</h1>
 
 <section>
-	<div class="btn-lg text-lg">
-		<a href="/health-moniter">健康检测</a>
-	</div>
-	<div class="btn-lg text-lg">
-		<a href="/fpv-stream">摄相头</a>
-	</div>
+	<a href="/health-moniter" class="btn-lg text-lg">健康检测</a>
+	<a href="/fpv-stream" class="btn-lg text-lg">摄相头</a>
 </section>
 
 <style>

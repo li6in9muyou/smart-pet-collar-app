@@ -1,11 +1,9 @@
-<div>
-	<a href="/"> 返回 </a>
-</div>
+<a href="/"> 返回 </a>
 
 <style>
-	div {
+	a {
 		width: fit-content;
-		border: solid;
+		border: solid black;
 		border-left: none;
 		border-top: none;
 		border-radius: 0 0 1rem 0;
