@@ -1,17 +1,17 @@
 <script>
 	import BackToHome from '$lib/BackToHome.svelte';
 	import FormattedNumericReading from '$lib/FormattedNumericReading.svelte';
-	import { latestValueOf } from '$lib/MockDataSource';
-	import { onMount } from 'svelte';
+	import { latestValueOf, windowOf } from '$lib/MockDataSource';
 	import { Line } from 'svelte-chartjs';
 	import 'chart.js/auto';
+	import { onMount } from 'svelte';
 
 	const data = {
-		labels: new Array(100).fill(''),
+		labels: new Array(30).fill(''),
 		datasets: [
 			{
-				label: 'My First dataset',
-				data: new Array(100).fill(null).map(() => Math.random()),
+				label: '',
+				data: [],
 
 				lineTension: 0.3,
 				backgroundColor: 'rgba(225, 204,230, .3)',
@@ -33,11 +33,34 @@
 		]
 	};
 
-	let heartRate, bodyTemperature, bloodOxygenLevel;
+	const op = {
+		plugins: {
+			legend: { display: false }
+		},
+		scales: {
+			y: {
+				min: 0,
+				max: 1
+			}
+		}
+	};
+
+	let heartRate,
+		bodyTemperature,
+		bloodOxygenLevel,
+		heartRateWindow,
+		bodyTemperatureWindow,
+		bloodOxygenLevelWindow;
+
 	onMount(() => {
 		heartRate = latestValueOf('跳每分钟');
+		heartRateWindow = windowOf('跳每分钟');
 		bodyTemperature = latestValueOf('摄氏度');
+		bodyTemperatureWindow = windowOf('摄氏度');
 		bloodOxygenLevel = latestValueOf('百分之');
+		bloodOxygenLevelWindow = windowOf('百分之');
+
+		heartRateWindow.subscribe((values) => (data.datasets[0].data = values));
 	});
 </script>
 
@@ -54,7 +77,7 @@
 	<FormattedNumericReading label="血氧" value={$bloodOxygenLevel} unit="%" />
 	<div class="chart">
 		<div>
-			<Line {data} />
+			<Line {data} options={op} />
 		</div>
 		<span>Hb</span>
 	</div>
