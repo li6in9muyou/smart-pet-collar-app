@@ -1,7 +1,7 @@
 <script>
 	import BackToHome from '$lib/BackToHome.svelte';
 	import FormattedNumericReading from '$lib/FormattedNumericReading.svelte';
-	import { latestValueOf } from '$lib/PocketBaseAdapter.js';
+	import { latestValueOf } from '$lib/MockDataSource';
 	import { onMount } from 'svelte';
 
 	let heartRate, bodyTemperature, bloodOxygenLevel;
