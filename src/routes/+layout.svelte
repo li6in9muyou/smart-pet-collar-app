@@ -9,8 +9,8 @@
 
 	<footer>
 		<p>
-			built by <a href="blog.li6q.fun">li6in9muyou</a>
-			with <a href="kit.svelte.dev">SvelteKit</a>
+			built by <a href="https://blog.li6q.fun">li6in9muyou</a>
+			with <a href="https://kit.svelte.dev">SvelteKit</a>
 		</p>
 	</footer>
 </div>
