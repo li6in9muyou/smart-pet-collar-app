@@ -62,6 +62,9 @@
 
 		heartRateWindow.subscribe((values) => (data.datasets[0].data = values));
 	});
+
+	const chartWidth = 250;
+	const chartHeight = 125;
 </script>
 
 <svelte:head>
@@ -77,13 +80,23 @@
 	<FormattedNumericReading label="血氧" value={$bloodOxygenLevel} unit="%" />
 	<div class="chart">
 		<div>
-			<Line {data} options={op} />
+			<Line
+				{data}
+				options={{ ...op, maintainAspectRatio: false }}
+				width={chartWidth}
+				height={chartHeight}
+			/>
 		</div>
 		<span>Hb</span>
 	</div>
 	<div class="chart">
 		<div>
-			<Line {data} options={op} />
+			<Line
+				{data}
+				options={{ ...op, maintainAspectRatio: false }}
+				width={chartWidth}
+				height={chartHeight}
+			/>
 		</div>
 		<span>HbO2</span>
 	</div>
