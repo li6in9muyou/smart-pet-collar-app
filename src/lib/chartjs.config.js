@@ -1,3 +1,5 @@
+const xAxisLength = 30;
+
 export default () => ({
 	options: {
 		plugins: {
@@ -11,7 +13,7 @@ export default () => ({
 		}
 	},
 	data: {
-		labels: new Array(30).fill(''),
+		labels: new Array(xAxisLength).fill(''),
 		datasets: [
 			{
 				label: '',
