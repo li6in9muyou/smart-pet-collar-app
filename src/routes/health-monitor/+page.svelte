@@ -34,24 +34,4 @@
 		padding: 1rem;
 		border: solid;
 	}
-
-	.chart {
-		display: flex;
-		align-items: stretch;
-		border: solid;
-		margin-top: 10px;
-	}
-
-	.chart > div {
-		flex: 1;
-		min-width: 0;
-	}
-
-	.chart > span {
-		padding: 0 5px;
-		border-left: solid;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
 </style>
