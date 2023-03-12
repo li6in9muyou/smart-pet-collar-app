@@ -2,94 +2,14 @@
 	import BackToHome from '$lib/BackToHome.svelte';
 	import FormattedNumericReading from '$lib/FormattedNumericReading.svelte';
 	import { latestValueOf, windowOf } from '$lib/MockDataSource';
-	import { Line } from 'svelte-chartjs';
-	import 'chart.js/auto';
-	import { onMount } from 'svelte';
+	import ExpandableHistoryReading from '$lib/ExpandableHistoryReading.svelte';
 
-	const data = {
-		labels: new Array(30).fill(''),
-		datasets: [
-			{
-				label: '',
-				data: [],
+	const heartRate = latestValueOf('跳每分钟');
+	const bodyTemperature = latestValueOf('摄氏度');
+	const bloodOxygenLevel = latestValueOf('百分之');
 
-				lineTension: 0.3,
-				backgroundColor: 'rgba(225, 204,230, .3)',
-				borderColor: 'rgb(205, 130, 158)',
-				borderCapStyle: 'butt',
-				borderDash: [],
-				borderDashOffset: 0.0,
-				borderJoinStyle: 'miter',
-				pointBorderColor: 'rgb(205, 130, 158)',
-				pointBackgroundColor: 'rgb(255, 255, 255)',
-				pointBorderWidth: 5,
-				pointHoverRadius: 5,
-				pointHoverBackgroundColor: 'rgb(0, 0, 0)',
-				pointHoverBorderColor: 'rgba(220, 220, 220,1)',
-				pointHoverBorderWidth: 2,
-				pointRadius: 1,
-				pointHitRadius: 10
-			}
-		]
-	};
-
-	const data2 = {
-		labels: new Array(30).fill(''),
-		datasets: [
-			{
-				label: '',
-				data: [],
-
-				lineTension: 0.3,
-				backgroundColor: 'rgba(225, 204,230, .3)',
-				borderColor: 'rgb(205, 130, 158)',
-				borderCapStyle: 'butt',
-				borderDash: [],
-				borderDashOffset: 0.0,
-				borderJoinStyle: 'miter',
-				pointBorderColor: 'rgb(205, 130, 158)',
-				pointBackgroundColor: 'rgb(255, 255, 255)',
-				pointBorderWidth: 5,
-				pointHoverRadius: 5,
-				pointHoverBackgroundColor: 'rgb(0, 0, 0)',
-				pointHoverBorderColor: 'rgba(220, 220, 220,1)',
-				pointHoverBorderWidth: 2,
-				pointRadius: 1,
-				pointHitRadius: 10
-			}
-		]
-	};
-
-	const op = {
-		plugins: {
-			legend: { display: false }
-		},
-		scales: {
-			y: {
-				min: 0,
-				max: 1
-			}
-		}
-	};
-
-	let heartRate,
-		bodyTemperature,
-		bloodOxygenLevel,
-		heartRateWindow,
-		bodyTemperatureWindow,
-		bloodOxygenLevelWindow;
-
-	onMount(() => {
-		heartRate = latestValueOf('跳每分钟');
-		heartRateWindow = windowOf('跳每分钟');
-		bodyTemperature = latestValueOf('摄氏度');
-		bodyTemperatureWindow = windowOf('摄氏度');
-		bloodOxygenLevel = latestValueOf('百分之');
-		bloodOxygenLevelWindow = windowOf('百分之');
-
-		bloodOxygenLevelWindow.subscribe((values) => (data.datasets[0].data = values));
-		heartRateWindow.subscribe((v) => (data2.datasets[0].data = v));
-	});
+	const heartRateWindow = windowOf('跳每分钟');
+	const bloodOxygenLevelWindow = windowOf('百分之');
 </script>
 
 <svelte:head>
@@ -103,18 +23,9 @@
 	<FormattedNumericReading label="体温" value={$bodyTemperature} unit="℃" />
 	<FormattedNumericReading label="心率" value={$heartRate} />
 	<FormattedNumericReading label="血氧" value={$bloodOxygenLevel} unit="%" />
-	<div class="chart">
-		<div>
-			<Line {data} options={op} />
-		</div>
-		<span>Hb</span>
-	</div>
-	<div class="chart">
-		<div>
-			<Line data={data2} options={op} />
-		</div>
-		<span>HbO2</span>
-	</div>
+
+	<ExpandableHistoryReading label="Hb" data={heartRateWindow} />
+	<ExpandableHistoryReading label="HbO2" data={bloodOxygenLevelWindow} />
 </section>
 
 <style>
