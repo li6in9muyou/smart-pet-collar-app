@@ -121,7 +121,7 @@
 	}
 
 	.chart > span {
-		flex: 0.1;
+		padding: 0 5px;
 		border-left: solid;
 		display: flex;
 		align-items: center;
