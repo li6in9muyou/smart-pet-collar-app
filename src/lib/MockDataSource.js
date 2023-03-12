@@ -1,4 +1,5 @@
 import { derived, readable } from 'svelte/store';
+import { SlidingWindow } from '$lib/Utility.js';
 
 class RandomNumbers {
 	value = readable([], (set) => {
@@ -9,20 +10,6 @@ class RandomNumbers {
 		return () => clearInterval(handle);
 	});
 	subscribe = this.value.subscribe;
-}
-
-class SlidingWindow {
-	values = [];
-	size = 30;
-	constructor(size = 30) {
-		this.size = size;
-	}
-	add(x) {
-		this.values.push(x);
-		if (this.values.length === this.size) {
-			this.values.shift();
-		}
-	}
 }
 
 const data_source = new (class MockDataSource {
