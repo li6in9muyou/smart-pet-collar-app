@@ -20,12 +20,12 @@
 <BackToHome />
 
 <section>
-	<FormattedNumericReading label="体温" value={$bodyTemperature} unit="℃" />
-	<FormattedNumericReading label="心率" value={$heartRate} />
-	<FormattedNumericReading label="血氧" value={$bloodOxygenLevel} unit="%" />
+	<FormattedNumericReading label="体温" numberStream={bodyTemperature} unit="℃" />
+	<FormattedNumericReading label="心率" numberStream={heartRate} />
+	<FormattedNumericReading label="血氧" numberStream={bloodOxygenLevel} unit="%" />
 
-	<ExpandableHistoryReading label="Hb" data={heartRateWindow} />
-	<ExpandableHistoryReading label="HbO2" data={bloodOxygenLevelWindow} />
+	<ExpandableHistoryReading label="Hb" numberStream={heartRateWindow} />
+	<ExpandableHistoryReading label="HbO2" numberStream={bloodOxygenLevelWindow} />
 </section>
 
 <style>

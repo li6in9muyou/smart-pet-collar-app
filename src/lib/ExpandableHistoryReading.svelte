@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 
 	export let label = '读数';
-	export let data = null;
+	export let numberStream = null;
 
 	const config = {
 		labels: new Array(30).fill(''),
@@ -45,7 +45,7 @@
 	};
 
 	onMount(() => {
-		data.subscribe((v) => (config.datasets[0].data = v));
+		numberStream.subscribe((v) => (config.datasets[0].data = v));
 	});
 </script>
 
