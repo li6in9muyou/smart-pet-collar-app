@@ -1,5 +1,6 @@
 const xAxisLength = 30;
 
+// see https://www.chartjs.org/docs/latest/configuration/
 export default () => ({
 	options: {
 		plugins: {
@@ -12,6 +13,7 @@ export default () => ({
 			}
 		}
 	},
+	// see https://www.chartjs.org/docs/latest/general/data-structures.html
 	data: {
 		labels: new Array(xAxisLength).fill(''),
 		datasets: [
