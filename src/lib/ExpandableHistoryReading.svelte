@@ -1,6 +1,14 @@
 <script>
 	import { Line } from 'svelte-chartjs';
-	import 'chart.js/auto';
+	import {
+		Chart as ChartJS,
+		Tooltip,
+		LineElement,
+		LinearScale,
+		PointElement,
+		CategoryScale
+	} from 'chart.js';
+	ChartJS.register(Tooltip, LineElement, LinearScale, PointElement, CategoryScale);
 	import { onMount } from 'svelte';
 
 	import c from '$lib/chartjs.config';
