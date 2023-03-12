@@ -24,7 +24,7 @@
 
 <div class="chart">
 	<div>
-		<Line data={cfg.data} options={cfg.op} />
+		<Line data={cfg.data} options={cfg.options} />
 	</div>
 	<span>{label}</span>
 </div>

@@ -1,5 +1,5 @@
 export default () => ({
-	op: {
+	options: {
 		plugins: {
 			legend: { display: false }
 		},
