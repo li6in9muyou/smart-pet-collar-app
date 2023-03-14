@@ -1,12 +1,19 @@
 <script>
 	import './styles.css';
 	import BackToHome from '$lib/BackToHome.svelte';
+	import { page } from '$app/stores';
+	import { derived } from 'svelte/store';
+
+	console.log($page.url.pathname);
+	const notAtHome = derived(page, (p) => p.url.pathname !== '/');
 </script>
 
 <div class="app">
 	<header>
-		<BackToHome />
-		<h1>智能宠物项圈APP</h1>
+		{#if $notAtHome}
+			<BackToHome />
+		{/if}
+		<h1>{$page.data.title}</h1>
 	</header>
 
 	<main>
