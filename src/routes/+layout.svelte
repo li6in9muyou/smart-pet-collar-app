@@ -4,7 +4,6 @@
 	import { page } from '$app/stores';
 	import { derived } from 'svelte/store';
 
-	console.log($page.url.pathname);
 	const notAtHome = derived(page, (p) => p.url.pathname !== '/');
 </script>
 
