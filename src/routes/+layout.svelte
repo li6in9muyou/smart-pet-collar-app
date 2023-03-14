@@ -1,8 +1,14 @@
 <script>
 	import './styles.css';
+	import BackToHome from '$lib/BackToHome.svelte';
 </script>
 
 <div class="app">
+	<header>
+		<BackToHome />
+		<h1>智能宠物项圈APP</h1>
+	</header>
+
 	<main>
 		<slot />
 	</main>
@@ -16,6 +22,15 @@
 </div>
 
 <style>
+	header {
+		display: flex;
+		align-items: center;
+	}
+
+	header > h1 {
+		margin: auto;
+	}
+
 	.app {
 		display: flex;
 		flex-direction: column;

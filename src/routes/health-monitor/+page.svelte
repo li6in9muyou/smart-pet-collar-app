@@ -1,5 +1,4 @@
 <script>
-	import BackToHome from '$lib/BackToHome.svelte';
 	import FormattedNumericReading from '$lib/FormattedNumericReading.svelte';
 	import { latestValueOf, windowOf } from '$lib/MockDataSource';
 	import ExpandableHistoryReading from '$lib/ExpandableHistoryReading.svelte';
@@ -16,8 +15,6 @@
 	<title>健康检测</title>
 	<meta name="description" content="健康检测" />
 </svelte:head>
-
-<BackToHome />
 
 <section>
 	<FormattedNumericReading label="体温" numberStream={bodyTemperature} unit="℃" />
