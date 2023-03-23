@@ -1,5 +1,4 @@
-import { derived, readable } from 'svelte/store';
-import { SlidingWindow } from '$lib/Utility.js';
+import { readable } from 'svelte/store';
 
 class RandomNumbers {
 	value = readable([], (set) => {
@@ -25,21 +24,6 @@ const data_source = new (class MockDataSource {
 			return new_reading;
 		}
 	}
-
-	windowOf(label) {
-		if (this.windows.has(label)) {
-			return this.windows.get(label);
-		} else {
-			const w = new SlidingWindow();
-			const window = derived(this.latestValueOf(label), (value) => {
-				w.add(value);
-				return w.values;
-			});
-			this.windows.set(label, window);
-			return window;
-		}
-	}
 })();
 
 export const latestValueOf = (label) => data_source.latestValueOf(label);
-export const windowOf = (label) => data_source.windowOf(label);
