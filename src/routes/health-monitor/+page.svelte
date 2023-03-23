@@ -1,14 +1,15 @@
 <script>
+	import { latestValueOf } from '$lib/MockDataSource';
+	import { SlidingWindowAggregation } from '$lib/Utility.js';
 	import FormattedNumericReading from '$lib/FormattedNumericReading.svelte';
-	import { latestValueOf, windowOf } from '$lib/MockDataSource';
 	import ExpandableHistoryReading from '$lib/ExpandableHistoryReading.svelte';
 
 	const heartRate = latestValueOf('跳每分钟');
 	const bodyTemperature = latestValueOf('摄氏度');
 	const bloodOxygenLevel = latestValueOf('百分之');
 
-	const heartRateWindow = windowOf('跳每分钟');
-	const bloodOxygenLevelWindow = windowOf('百分之');
+	const heartRateWindow = new SlidingWindowAggregation(heartRate);
+	const bloodOxygenLevelWindow = new SlidingWindowAggregation(bloodOxygenLevel);
 </script>
 
 <svelte:head>
