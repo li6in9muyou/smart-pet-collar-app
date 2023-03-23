@@ -1,11 +1,18 @@
 <script>
 	import { latestValueOf } from '$lib/MockDataSource';
-	import { SlidingWindowAggregation } from '$lib/Utility.js';
+	import { SlidingWindowAggregation } from '$lib/Utility';
+	import TopicDataStream from '$lib/AliCloudIotDataSource';
 	import FormattedNumericReading from '$lib/FormattedNumericReading.svelte';
 	import ExpandableHistoryReading from '$lib/ExpandableHistoryReading.svelte';
+	import { onMount } from 'svelte';
 
 	const heartRate = latestValueOf('跳每分钟');
-	const bodyTemperature = latestValueOf('摄氏度');
+
+	let bodyTemperature;
+	onMount(async () => {
+		const iotStream = new TopicDataStream();
+		bodyTemperature = await iotStream.getStream();
+	});
 	const bloodOxygenLevel = latestValueOf('百分之');
 
 	const heartRateWindow = new SlidingWindowAggregation(heartRate);
