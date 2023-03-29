@@ -5,13 +5,17 @@
 	import FormattedNumericReading from '$lib/FormattedNumericReading.svelte';
 	import ExpandableHistoryReading from '$lib/ExpandableHistoryReading.svelte';
 	import { onMount } from 'svelte';
+	import { toast } from 'svelte-french-toast';
 
 	const heartRate = latestValueOf('跳每分钟');
 
-	let bodyTemperature;
+	let bodyTemperature, ok;
 	onMount(async () => {
 		const iotStream = new TopicDataStream();
-		bodyTemperature = await iotStream.getStream();
+		[bodyTemperature, ok] = await iotStream.getStream();
+		if (!ok) {
+			toast.error('设备连接失败', { duration: 10 * 1000 });
+		}
 	});
 	const bloodOxygenLevel = latestValueOf('百分之');
 

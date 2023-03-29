@@ -33,9 +33,14 @@ export default class TopicDataStream {
 				self.setLatestValue(JSON.parse(payloadJSON).AnimalBodyTemperature.value);
 			}
 		});
+		device.on('error', (err) => {
+			console.error('iot device emits error event: ', err);
+			resolveStore(null);
+		});
 	}
 
 	async getStream() {
-		return await this.store;
+		const s = await this.store;
+		return [s, s !== null];
 	}
 }
