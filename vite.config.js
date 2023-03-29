@@ -8,7 +8,12 @@ const config = {
 		nodePolyfills({
 			protocolImports: true
 		})
-	]
+	],
+	server: {
+		fs: {
+			allow: ['./', '.yarn']
+		}
+	}
 };
 
 export default config;
