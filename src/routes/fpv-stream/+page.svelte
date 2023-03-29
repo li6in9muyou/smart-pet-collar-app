@@ -1,4 +1,6 @@
 <script>
+	import { toast } from 'svelte-french-toast';
+
 	export let data;
 	const imgSrc = data.imgSrc;
 </script>
@@ -8,7 +10,7 @@
 </svelte:head>
 
 <section>
-	<img src={$imgSrc} alt="" />
+	<img src={$imgSrc} alt="" on:error={() => toast.error('图片不能加载')} />
 </section>
 
 <style>
