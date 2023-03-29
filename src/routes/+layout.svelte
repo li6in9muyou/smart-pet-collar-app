@@ -3,9 +3,12 @@
 	import BackToHome from '$lib/BackToHome.svelte';
 	import { page } from '$app/stores';
 	import { derived } from 'svelte/store';
+	import { Toaster } from 'svelte-french-toast';
 
 	const notAtHome = derived(page, (p) => p.url.pathname !== '/');
 </script>
+
+<Toaster />
 
 <div class="app">
 	<header>
