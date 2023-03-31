@@ -21,7 +21,7 @@
 		}
 	});
 	onDestroy(() => {
-		iotStream.end();
+		iotStream?.end();
 	});
 </script>
 
