@@ -9,7 +9,6 @@
 		CategoryScale
 	} from 'chart.js';
 	ChartJS.register(Tooltip, LineElement, LinearScale, PointElement, CategoryScale);
-	import { onMount } from 'svelte';
 
 	import c from '$lib/chartjs.config';
 	const cfg = c();
@@ -17,9 +16,7 @@
 	export let label = '读数';
 	export let numberStream = null;
 
-	onMount(() => {
-		numberStream.subscribe((v) => (cfg.data.datasets[0].data = v));
-	});
+	$: numberStream?.subscribe((v) => (cfg.data.datasets[0].data = v));
 </script>
 
 <div class="chart">
