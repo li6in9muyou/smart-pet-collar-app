@@ -30,7 +30,12 @@
 
 <section>
 	<FormattedNumericReading label="体温" numberStream={bodyTemperature} unit="℃" />
-	<FormattedNumericReading label="心率" numberStream={heartRate} />
+	<FormattedNumericReading
+		label="心率"
+		numberStream={heartRate}
+		decimalPlaces="0"
+		unit="下每分钟"
+	/>
 	<FormattedNumericReading label="血氧" numberStream={bloodOxygenLevel} unit="%" />
 
 	<ExpandableHistoryReading label="Hb" numberStream={heartRateWindow} />
