@@ -5,17 +5,19 @@
 	import ExpandableHistoryReading from '$lib/ExpandableHistoryReading.svelte';
 	import { onMount } from 'svelte';
 	import { toast } from 'svelte-french-toast';
+	import { derived } from 'svelte/store';
 
 	let bodyTemperature, heartRate, bloodOxygenLevel;
-	let heartRateWindow, bloodOxygenLevelWindow;
+	let Hb, HbO2;
 	onMount(async () => {
 		const iotStream = new TopicDataStream();
 		const [streams, ok] = await iotStream.getStream();
-		[bodyTemperature, heartRate, bloodOxygenLevel] = streams;
-		heartRateWindow = new SlidingWindowAggregation(heartRate);
-		bloodOxygenLevelWindow = new SlidingWindowAggregation(bloodOxygenLevel);
 		if (!ok) {
 			toast.error('设备连接失败', { duration: 10 * 1000 });
+		} else {
+			[bodyTemperature, heartRate, bloodOxygenLevel] = streams;
+			Hb = new SlidingWindowAggregation(derived(bloodOxygenLevel, (v) => v / 100));
+			HbO2 = new SlidingWindowAggregation(derived(bloodOxygenLevel, (v) => 1 - v / 100));
 		}
 	});
 </script>
@@ -35,8 +37,8 @@
 	/>
 	<FormattedNumericReading label="血氧" numberStream={bloodOxygenLevel} unit="%" />
 
-	<ExpandableHistoryReading label="Hb" numberStream={heartRateWindow} />
-	<ExpandableHistoryReading label="HbO2" numberStream={bloodOxygenLevelWindow} />
+	<ExpandableHistoryReading label="Hb" numberStream={Hb} />
+	<ExpandableHistoryReading label="HbO2" numberStream={HbO2} />
 </section>
 
 <style>
