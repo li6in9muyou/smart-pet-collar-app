@@ -3,11 +3,11 @@ import { derived, readable } from 'svelte/store';
 
 export default class TopicDataStream {
 	store;
+	end_connection;
 	constructor() {
 		const productKey = import.meta.env.VITE_ALIYUN_DEVICE_PRODUCT_KEY;
 		const deviceName = import.meta.env.VITE_ALIYUN_DEVICE_NAME;
 		const deviceSecret = import.meta.env.VITE_ALIYUN_DEVICE_SECRET;
-
 		const device = iot.device({
 			productKey,
 			deviceName,
@@ -25,6 +25,7 @@ export default class TopicDataStream {
 				self.setLatestValue = set;
 			});
 			resolveStore(store);
+			this.end_connection = device.end.bind(device);
 		});
 		device.on('message', (topic, _payload) => {
 			if (!topic.startsWith('/sys')) {
@@ -50,5 +51,11 @@ export default class TopicDataStream {
 		const hr = derived(s, (p) => p.hr);
 		const os = derived(s, (p) => p.os);
 		return [[bt, hr, os], s !== null];
+	}
+
+	end() {
+		if (this.end_connection) {
+			this.end_connection();
+		}
 	}
 }
