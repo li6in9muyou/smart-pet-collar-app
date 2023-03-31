@@ -1,5 +1,5 @@
 import { default as iot } from 'alibabacloud-iot-device-sdk';
-import { readable } from 'svelte/store';
+import { derived, readable } from 'svelte/store';
 
 export default class TopicDataStream {
 	store;
@@ -26,11 +26,16 @@ export default class TopicDataStream {
 			});
 			resolveStore(store);
 		});
-		device.on('message', (topic, payload) => {
+		device.on('message', (topic, _payload) => {
 			if (!topic.startsWith('/sys')) {
-				const payloadJSON = payload.toString();
-				console.log(topic, payloadJSON);
-				self.setLatestValue(JSON.parse(payloadJSON).AnimalBodyTemperature.value);
+				const payloadJSON = _payload.toString();
+				const payload = JSON.parse(payloadJSON);
+				const properties = {
+					bt: payload.AnimalBodyTemperature.value,
+					hr: payload.AnimalHeartRate.value,
+					os: payload.AnimalOxygenSaturation.value
+				};
+				self.setLatestValue(properties);
 			}
 		});
 		device.on('error', (err) => {
@@ -41,6 +46,9 @@ export default class TopicDataStream {
 
 	async getStream() {
 		const s = await this.store;
-		return [s, s !== null];
+		const bt = derived(s, (p) => p.bt);
+		const hr = derived(s, (p) => p.hr);
+		const os = derived(s, (p) => p.os);
+		return [[bt, hr, os], s !== null];
 	}
 }
