@@ -1,5 +1,7 @@
 import { default as iot } from 'alibabacloud-iot-device-sdk';
 import { derived, readable } from 'svelte/store';
+import { toast } from 'svelte-french-toast';
+import { sleep } from './Utility.js';
 
 export default class TopicDataStream {
 	store;
@@ -17,6 +19,11 @@ export default class TopicDataStream {
 		device.subscribe(`/${productKey}/${deviceName}/user/doggy/property`);
 		let resolveStore;
 		this.store = new Promise((resolve) => (resolveStore = resolve));
+		toast.promise(Promise.all([this.store, sleep(600)]), {
+			loading: '正在连接云平台',
+			success: '连接成功',
+			error: '出错了'
+		});
 
 		const self = this;
 		device.on('connect', () => {

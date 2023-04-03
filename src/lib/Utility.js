@@ -28,3 +28,9 @@ export class SlidingWindowAggregation {
 		this.subscribe = this.store.subscribe;
 	}
 }
+
+export function sleep(delayMilliSecond, resolveValue) {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(resolveValue), delayMilliSecond);
+	});
+}
